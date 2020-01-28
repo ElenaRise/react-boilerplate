@@ -1,20 +1,20 @@
 import { store } from '../../store';
 import { createCounterIncrementAction, createCounterDecrementAction } from './actions';
 
-const counterValue = document.getElementById('counter');
-const counterIncrementBtnNode = document.getElementById('counter-increment-btn');
-const counterDecrementBtnNode = document.getElementById('counter-decrement-btn');
+const counterValueNode = document.getElementById('counter-value');
+const counterIncrementButtonNode = document.getElementById('counter-increment-button');
+const counterDecrementButtonNode = document.getElementById('counter-decrement-button');
 
 store.subscribe(() => {
   const { counterReducer } = store.getState();
 
-  counterValue.innerText = counterReducer;
+  counterValueNode.innerText = counterReducer;
 });
 
-counterIncrementBtnNode.addEventListener('click', () => {
+counterIncrementButtonNode.addEventListener('click', () => {
   store.dispatch(createCounterIncrementAction());
 });
 
-counterDecrementBtnNode.addEventListener('click', () => {
+counterDecrementButtonNode.addEventListener('click', () => {
   store.dispatch(createCounterDecrementAction());
 });
