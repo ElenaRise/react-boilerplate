@@ -24,8 +24,14 @@ function renderTodoList() {
 
   items.forEach(item => {
     const itemNode = document.createElement('li');
+    const itemButtonNode = document.createElement('button');
 
-    itemNode.innerText = item;
+    itemButtonNode.innerText = 'X';
+    itemNode.className = 'todo__list-item';
+    itemButtonNode.className = 'todo__list-item-btn';
+
+    itemNode.innerText = item.title;
+    itemNode.appendChild(itemButtonNode);
     listNode.appendChild(itemNode);
   });
 

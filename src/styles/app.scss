@@ -69,3 +69,21 @@ body {
   padding: 5px 10px;
   background: rgb(173, 216, 230);
 }
+
+.todo__list-item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.todo__list-item-btn {
+  margin-left: 20px;
+  padding: 2px 5px;
+  background-color: rgb(255, 228, 225);
+  border-radius: 5px;
+  border: rgb(0, 0, 0) solid 1px;
+}

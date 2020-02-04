@@ -1,10 +1,10 @@
-import { TODO_ADD } from './constants';
+import { TODO_ADD, TODO_REMOVE } from './constants';
 
 const initialState = {
   items: [
-    'Вынести мусор',
-    'Попылесосить',
-    'Покушать',
+    { id: 1, title: 'Вынести мусор' },
+    { id: 2, title: 'Попылесосить' },
+    { id: 3, title: 'Покушать' },
   ],
 };
 
@@ -18,6 +18,15 @@ export function todoReducer(state = initialState, action) {
           action.payload.title,
         ],
       };
+
+    case TODO_REMOVE: {
+      const newItems = state.items.filter(item => item.id !== action.payload.id);
+
+      return {
+        ...state.items,
+        items: newItems,
+      };
+    }
 
     default:
       return state;
