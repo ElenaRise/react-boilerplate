@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { DECREMENT, INCREMENT } from './constants';
 
 export function createCounterIncrementAction() {
