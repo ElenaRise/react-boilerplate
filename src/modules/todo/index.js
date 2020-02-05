@@ -1,28 +1,39 @@
 import { store } from '../../store';
-import { addTodo, removeTodo } from './actions';
+import { addTodo, removeTodo, setFilter } from './actions';
 
-const todoInputNode = document.getElementById('todo-input');
+const todoTaskInputNode = document.getElementById('todo-task-input');
+const todoFilterInputNode = document.getElementById('todo-filter-input');
 const todoBtnAddNode = document.getElementById('todo-btn-add');
 const todoRootNode = document.getElementById('todo-list-root');
 
 function handleAddTodo() {
-  const title = todoInputNode.value;
-  const addTodoAction = addTodo(title);
+  const { value } = todoTaskInputNode;
+  const addTodoAction = addTodo(value);
 
-  todoInputNode.value = '';
+  todoTaskInputNode.value = '';
 
   store.dispatch(addTodoAction);
 }
 
+function handleFilterChange() {
+  const { value } = todoFilterInputNode;
+
+  store.dispatch(setFilter(value));
+}
+
 function renderTodoList() {
   const { todoReducer } = store.getState();
-  const { items } = todoReducer;
+  const { filter, items } = todoReducer;
 
   const listNode = document.createElement('ul');
 
+  const filteredItems = filter
+    ? items.filter(({ title }) => title.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+    : items;
+
   todoRootNode.innerHTML = '';
 
-  items.forEach(item => {
+  filteredItems.forEach(item => {
     const itemNode = document.createElement('li');
     const itemButtonNode = document.createElement('button');
 
@@ -46,10 +57,12 @@ renderTodoList();
 
 store.subscribe(renderTodoList);
 
-todoInputNode.addEventListener('keydown', event => {
+todoTaskInputNode.addEventListener('keydown', event => {
   if (event.key === 'Enter') {
     handleAddTodo();
   }
 });
+
+todoFilterInputNode.addEventListener('input', handleFilterChange);
 
 todoBtnAddNode.addEventListener('click', handleAddTodo);
