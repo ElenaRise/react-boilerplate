@@ -4,6 +4,7 @@ export function addTodo(title) {
   return {
     type: TODO_ADD,
     payload: {
+      id: Date.now() + Math.random(),
       title,
     },
   };

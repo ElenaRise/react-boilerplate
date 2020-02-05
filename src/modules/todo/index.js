@@ -1,5 +1,5 @@
 import { store } from '../../store';
-import { addTodo } from './actions';
+import { addTodo, removeTodo } from './actions';
 
 const todoInputNode = document.getElementById('todo-input');
 const todoBtnAddNode = document.getElementById('todo-btn-add');
@@ -33,6 +33,10 @@ function renderTodoList() {
     itemNode.innerText = item.title;
     itemNode.appendChild(itemButtonNode);
     listNode.appendChild(itemNode);
+
+    itemButtonNode.addEventListener('click', () => {
+      store.dispatch(removeTodo(item.id));
+    });
   });
 
   todoRootNode.append(listNode);
