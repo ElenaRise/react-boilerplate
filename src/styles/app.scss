@@ -2,6 +2,20 @@
 @import 'reset';
 @import './mixins';
 
+@keyframes item-fade-in-from-right {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(30%, 0);
+  }
+
+  100% {
+    opacity: 0.5;
+    visibility: visible;
+    transform: translate(0, 0);
+  }
+}
+
 body {
   padding: 30px;
   background-color: rgb(188, 143, 143);
@@ -70,14 +84,19 @@ body {
   background: rgb(173, 216, 230);
 }
 
-.todo__list-item {
-  display: flex;
+.todo__item {
+  display: list-item;
   justify-content: space-between;
   margin-top: 5px;
 
   &:first-child {
     margin-top: 0;
   }
+}
+
+.todo__item--preview {
+  opacity: 0.6;
+  animation: item-fade-in-from-right 0.5s;
 }
 
 .todo__controls-input {

@@ -3,9 +3,9 @@ import { TODO_ADD, TODO_REMOVE, TODO_SET_FILTER } from './constants';
 const initialState = {
   filter: '',
   items: [
-    { id: Date.now + Math.random, title: 'Вынести мусор' },
-    { id: Date.now + Math.random, title: 'Попылесосить' },
-    { id: Date.now + Math.random, title: 'Покушать' },
+    { id: Date.now() + Math.random(), title: 'Вынести мусор' },
+    { id: Date.now() + Math.random(), title: 'Попылесосить' },
+    { id: Date.now() + Math.random(), title: 'Покушать' },
   ],
 };
 
