@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTodo } from '../actions';
+import { addTodo, removeTodo } from '../actions';
 
 export const Todo = () => {
   const todoReducer = useSelector(state => state.todoReducer);
@@ -43,6 +43,12 @@ export const Todo = () => {
         { items.map(item => (
           <li className="todo__item" key={item.id}>
             { item.title }
+            <button
+              className="todo__list-item-btn"
+              onClick={() => dispatch(removeTodo(item.id))}
+            >
+              X
+            </button>
           </li>
         )) }
         { !!trimmedValue && (
