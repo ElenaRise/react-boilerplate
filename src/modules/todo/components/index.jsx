@@ -7,24 +7,32 @@ export const Todo = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const { filter, items } = todoReducer;
+  const trimmedValue = value.trim();
 
   const filteredItems = items.filter(item => (
     item.title.toLowerCase().indexOf(filter.trim().toLowerCase()) !== -1
   ));
 
+  const handleAddTodoItem = () => {
+    if (trimmedValue !== '') {
+      dispatch(addTodo(value));
+      setValue('');
+    }
+  };
+
   const handleTodoTitleChange = event => {
     setValue(event.target.value);
+  };
+
+  const handleTodoTitleInputKeydown = event => {
+    if (event.key === 'Enter') {
+      handleAddTodoItem();
+    }
   };
 
   const handleFilterChange = event => {
     dispatch(setFilter(event.target.value));
   };
-
-  const handleAddTodoItem = () => {
-    dispatch(addTodo(value.trim()));
-  };
-
-  const trimmedValue = value.trim();
 
   return (
     <div className="todo">
@@ -34,6 +42,7 @@ export const Todo = () => {
           placeholder="Please type in task"
           value={value}
           onChange={handleTodoTitleChange}
+          onKeyDown={handleTodoTitleInputKeydown}
         />
         <input
           className="todo__controls-input"
