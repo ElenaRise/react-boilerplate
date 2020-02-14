@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTodo, removeTodo } from '../actions';
+import { addTodo, removeTodo, setFilter } from '../actions';
 
 export const Todo = () => {
   const todoReducer = useSelector(state => state.todoReducer);
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
-  const { items } = todoReducer;
+  const { filter, items } = todoReducer;
+
+  const filteredItems = items.filter(item => (
+    item.title.toLowerCase().indexOf(filter.trim().toLowerCase()) !== -1
+  ));
 
   const handleTodoTitleChange = event => {
     setValue(event.target.value);
+  };
+
+  const handleFilterChange = event => {
+    dispatch(setFilter(event.target.value));
   };
 
   const handleAddTodoItem = () => {
@@ -30,6 +38,7 @@ export const Todo = () => {
         <input
           className="todo__controls-input"
           placeholder="Please type in filter"
+          onChange={handleFilterChange}
         />
         <button
           className="todo__controls-btn"
@@ -40,7 +49,7 @@ export const Todo = () => {
         </button>
       </div>
       <ul>
-        { items.map(item => (
+        { filteredItems.map(item => (
           <li className="todo__item" key={item.id}>
             { item.title }
             <button
