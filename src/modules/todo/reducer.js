@@ -26,7 +26,7 @@ export function todoReducer(state = initialState, { type, payload }) {
       const newItems = items.filter(item => item.id !== payload.id);
 
       return {
-        ...state.items,
+        ...state,
         items: newItems,
       };
     }

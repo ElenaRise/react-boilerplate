@@ -9,6 +9,8 @@
   />
   <meta name="description" content="React PWA Boilerplate">
   <title>React PWA Boilerplate</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel="shortcut icon" href="/assets/images/favicons/favicon.ico">
   <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32.png">
   <style>
@@ -230,7 +232,6 @@
 </div>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-<script async="true" src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"></script>
 <script async="true" src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
 <% } %>
 

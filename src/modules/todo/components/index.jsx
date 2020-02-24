@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 import { addTodo, removeTodo, setFilter } from '../actions';
 
 export const Todo = () => {
@@ -8,7 +11,6 @@ export const Todo = () => {
   const [value, setValue] = useState('');
   const { filter, items } = todoReducer;
   const trimmedValue = value.trim();
-
   const filteredItems = items.filter(item => (
     item.title.toLowerCase().indexOf(filter.trim().toLowerCase()) !== -1
   ));
@@ -49,24 +51,26 @@ export const Todo = () => {
           placeholder="Please type in filter"
           onChange={handleFilterChange}
         />
-        <button
+        <Button
           className="todo__controls-btn"
+          variant="contained"
           disabled={!trimmedValue}
+          color="primary"
+          endIcon={<Icon>add</Icon>}
           onClick={handleAddTodoItem}
         >
           Add
-        </button>
+        </Button>
       </div>
       <ul>
         { filteredItems.map(item => (
           <li className="todo__item" key={item.id}>
             { item.title }
-            <button
-              className="todo__list-item-btn"
-              onClick={() => dispatch(removeTodo(item.id))}
+            <IconButton
+              onClick={() => { dispatch(removeTodo(item.id)); }}
             >
-              X
-            </button>
+              <Icon>delete</Icon>
+            </IconButton>
           </li>
         )) }
         { !!trimmedValue && (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Button from '@material-ui/core/Button';
 import { createCounterDecrementAction, createCounterIncrementAction } from '../actions';
 
 export function Counter() {
@@ -16,15 +17,23 @@ export function Counter() {
 
   return (
     <div>
-      <button onClick={handleDecrease} className="counter-decrement-button">
+      <Button
+        onClick={handleDecrease}
+        color="primary"
+        variant="contained"
+      >
         Decrement
-      </button>
+      </Button>
       <div className="counter__value">
         { value }
       </div>
-      <button onClick={handleIncrease} className="counter-increment-button">
+      <Button
+        onClick={handleIncrease}
+        color="primary"
+        variant="contained"
+      >
         Increment
-      </button>
+      </Button>
     </div>
   );
 }
