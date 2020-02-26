@@ -1,11 +1,24 @@
-import { TODO_ADD, TODO_REMOVE, TODO_SET_FILTER } from './constants';
+import {
+  TODO_ADD, TODO_UPDATE, TODO_REMOVE, TODO_SET_FILTER,
+} from './constants';
 
 export function addTodo(title) {
   return {
     type: TODO_ADD,
     payload: {
       id: Date.now() + Math.random(),
+      isCompleted: false,
       title,
+    },
+  };
+}
+
+export function updateTodo(id, data) {
+  return {
+    type: TODO_UPDATE,
+    payload: {
+      id,
+      data,
     },
   };
 }

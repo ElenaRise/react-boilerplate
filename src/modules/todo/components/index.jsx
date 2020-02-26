@@ -3,27 +3,30 @@ import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-import { addTodo, removeTodo, setFilter } from '../actions';
+import Switch from '@material-ui/core/Switch';
+import {
+  addTodo, updateTodo, removeTodo, setFilter,
+} from '../actions';
 
 export const Todo = () => {
   const todoReducer = useSelector(state => state.todoReducer);
   const dispatch = useDispatch();
-  const [value, setValue] = useState('');
+  const [titleValue, setTitleValue] = useState('');
   const { filter, items } = todoReducer;
-  const trimmedValue = value.trim();
+  const trimmedValue = titleValue.trim();
   const filteredItems = items.filter(item => (
     item.title.toLowerCase().indexOf(filter.trim().toLowerCase()) !== -1
   ));
 
   const handleAddTodoItem = () => {
     if (trimmedValue !== '') {
-      dispatch(addTodo(value));
-      setValue('');
+      dispatch(addTodo(titleValue));
+      setTitleValue('');
     }
   };
 
   const handleTodoTitleChange = event => {
-    setValue(event.target.value);
+    setTitleValue(event.target.value);
   };
 
   const handleTodoTitleInputKeydown = event => {
@@ -42,7 +45,7 @@ export const Todo = () => {
         <input
           className="todo__controls-input"
           placeholder="Please type in task"
-          value={value}
+          value={titleValue}
           onChange={handleTodoTitleChange}
           onKeyDown={handleTodoTitleInputKeydown}
         />
@@ -63,11 +66,17 @@ export const Todo = () => {
         </Button>
       </div>
       <ul>
-        { filteredItems.map(item => (
-          <li className="todo__item" key={item.id}>
-            { item.title }
+        { filteredItems.map(({ id, isCompleted, title }) => (
+          <li className="todo__item" key={id}>
+            <Switch
+              value={isCompleted}
+              onChange={value => {
+                dispatch(updateTodo(id, { isCompleted: value }));
+              }}
+            />
+            { title }
             <IconButton
-              onClick={() => { dispatch(removeTodo(item.id)); }}
+              onClick={() => { dispatch(removeTodo(id)); }}
             >
               <Icon>delete</Icon>
             </IconButton>
